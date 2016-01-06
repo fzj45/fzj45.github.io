@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style media="screen">
+    body {
+      background: linear-gradient(to left, #ffa17f, #00223e); }
+    .list {
+        width:100%  !important;
+        height:auto  !important;
+    }
+    .userTrackBox {
+        float: right;
+        position:relative;
+        margin: 0;
+        width: 38.1971%;
+    }
+    img {
+    opacity: 0.6;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+img:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+    .userTrackBox {
+        line-height: 0;
+        -webkit-column-count: 8;
+        -webkit-column-gap: 0px;
+        -moz-column-count:    8;
+      	-moz-column-gap:      0px;
+        column-count: 8;
+        column-gap: 0px;
+    }
+    @media (max-width: 1200px) {
+      .userTrackBox {
+      -moz-column-count:    6;
+      -webkit-column-count: 6;
+      column-count:         6;
+      }
+    }
+    @media (max-width: 1000px) {
+      .userTrackBox {
+      -moz-column-count:    5;
+      -webkit-column-count: 5;
+      column-count:         5;
+      }
+    }
+    @media (max-width: 800px) {
+      .userTrackBox {
+      -moz-column-count:    4;
+      -webkit-column-count: 4;
+      column-count:         4;
+      }
+    }
+    @media (max-width: 400px) {
+      .userTrackBox {
+      -moz-column-count:    4;
+      -webkit-column-count: 4;
+      column-count:         4;
+      }
+    }
+    </style>
+    <title>React Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.5/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.5/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.1/fetch.min.js" ></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/babel">
+      // To get started with this tutorial running your own code, simply remove
+      // the script tag loading scripts/example.js and start writing code here.
+
+    var UserTrackBox = React.createClass({
+        getInitialState: function() {
+           return {
+               data: []
+
+           }
+        },
+        componentDidMount: function() {
+      fetch('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=120')
+  .then(function(response) {
+    return response.json()
+
+  }).then(function(json) {
+    var data = json.recenttracks.track;
+    if (this.isMounted()) {
+                    this.setState({data: data});
+                }
+  }.bind(this)).catch(function(ex) {
+
+  })
+        },
+        render: function() {
+            return (
+                    <div className="LastFmlist">
+
+                            <TrackList data={this.state.data} />
+                    </div>
+            );
+        }
+    });
+
+    var TrackList = React.createClass({
+        render: function() {
+                var trackNodes = this.props.data.map(function(result, index) {
+
+                 var _furl = result.image[1]["#text"];
+                 var _fartist = result.artist["#text"];
+                 var _fname = result.name;
+                 var _fhref = result.url;
+
+
+                 if (_furl == 0) {
+                     var newimg = 'http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg';
+                     _furl = newimg;
+                 }
+
+                 return (<Track  furl={_furl} key={index}/>);
+
+             });
+             return (
+                 <ul className="userTrackBox">
+                       {trackNodes}
+                    </ul>
+             );
+         }
+     });
+
+     var Track = React.createClass({
+         render: function() {
+             return (
+
+                                         <img className="list" src={this.props.furl}/>
+
+
+
+             );
+         }
+     });
+
+    ReactDOM.render(
+      <UserTrackBox />,
+            document.getElementById('content')
+    );
+
+    </script>
+  </body>
+</html>
