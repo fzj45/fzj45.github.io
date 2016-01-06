@@ -81,7 +81,7 @@ img:hover {
            }
         },
         componentDidMount: function() {
-      fetch('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=120')
+      fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=120')
   .then(function(response) {
     return response.json()
 
@@ -115,7 +115,7 @@ img:hover {
 
 
                  if (_furl == 0) {
-                     var newimg = 'http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg';
+                     var newimg = 'https://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg';
                      _furl = newimg;
                  }
 
