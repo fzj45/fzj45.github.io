@@ -4,61 +4,50 @@
     <style media="screen">
     body {
       background: linear-gradient(to left, #ffa17f, #00223e); }
-    .list {
-        width:100%  !important;
-        height:auto  !important;
-    }
-    .userTrackBox {
-        float: right;
-        position:relative;
-        margin: 0;
-        width: 38.1971%;
-    }
-    img {
-    opacity: 0.6;
-    filter: alpha(opacity=40); /* For IE8 and earlier */
-}
 
-img:hover {
-    opacity: 1.0;
-    filter: alpha(opacity=100); /* For IE8 and earlier */
-}
-    .userTrackBox {
-        line-height: 0;
-        -webkit-column-count: 8;
-        -webkit-column-gap: 0px;
-        -moz-column-count:    8;
-      	-moz-column-gap:      0px;
-        column-count: 8;
-        column-gap: 0px;
-    }
-    @media (max-width: 1200px) {
-      .userTrackBox {
-      -moz-column-count:    6;
-      -webkit-column-count: 6;
-      column-count:         6;
-      }
-    }
-    @media (max-width: 1000px) {
-      .userTrackBox {
-      -moz-column-count:    5;
-      -webkit-column-count: 5;
-      column-count:         5;
-      }
-    }
-    @media (max-width: 800px) {
-      .userTrackBox {
-      -moz-column-count:    4;
-      -webkit-column-count: 4;
-      column-count:         4;
-      }
-    }
-    @media (max-width: 400px) {
-      .userTrackBox {
-      -moz-column-count:    4;
-      -webkit-column-count: 4;
-      column-count:         4;
-      }
+    .musicBox {
+      float: right;
+      position:relative;
+      margin: 0;
+      width: 38.1971%; }
+
+    img {
+      opacity: 0.44;
+      filter: alpha(opacity=55); }
+      img:hover {
+        opacity: 0.8;
+        filter: alpha(opacity=80); }
+
+    ul.img-list {
+      float: left;
+      margin: 0;
+      padding: 0;
+      text-align: center; }
+      ul.img-list li {
+        display: inline-block;
+        position: relative; }
+        ul.img-list li:hover span.tooltips {
+          opacity: 1; }
+
+    span.tooltips {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      cursor: pointer;
+      display: table;
+      left: 0;
+      position: absolute;
+      top: 0;
+      opacity: 0;
+      transition: opacity 500ms; }
+      span.tooltips span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle; }
+    .tooltips{
+      font-family: "museo-sans",sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size:12px;
     }
     </style>
     <title>lastfm example</title>
@@ -96,7 +85,7 @@ img:hover {
         },
         render: function() {
             return (
-                    <div className="LastFmlist">
+                    <div className="musicBox">
 
                             <TrackList data={this.state.data} />
                     </div>
@@ -119,11 +108,11 @@ img:hover {
                      _furl = newimg;
                  }
 
-                 return (<Track  furl={_furl} key={index}/>);
+                 return (<Track  fhref={_fhref} fartist={_fartist} fname={_fname}  furl={_furl} key={index}/>);
 
              });
              return (
-                 <ul className="userTrackBox">
+                 <ul className="img-list">
                        {trackNodes}
                     </ul>
              );
@@ -133,11 +122,12 @@ img:hover {
      var Track = React.createClass({
          render: function() {
              return (
-
-                                         <img className="list" src={this.props.furl}/>
-
-
-
+               <li className="img-list">
+               <a href={this.props.fhref}>
+               <img src={this.props.furl} width="64" height="64" />
+               <span className="tooltips"><span>{this.props.fname}</span></span>
+               </a>
+               </li>
              );
          }
      });
