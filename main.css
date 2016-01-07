@@ -1,0 +1,37 @@
+body {
+  background: linear-gradient(to left, #ffa17f, #00223e); }
+
+.list {
+  width: 100% !important;
+  height: auto !important; }
+
+.userTrackBox {
+  float: right;
+  position: relative;
+  margin: 0;
+  width: 38.1971%;
+  line-height: 0;
+  column-count: 8;
+  column-gap: 0; }
+
+img {
+  opacity: 0.6;
+  filter: alpha(opacity=40); }
+  img:hover {
+    opacity: 1;
+    filter: alpha(opacity=100); }
+
+@media(max-width: 1200px) {
+  .userTrackBox {
+    column-count: 6; } }
+@media(max-width: 1000px) {
+  .userTrackBox {
+    column-count: 5; } }
+@media(max-width: 800px) {
+  .userTrackBox {
+    column-count: 4; } }
+@media(max-width: 400px) {
+  .userTrackBox {
+    column-count: 4; } }
+
+/*# sourceMappingURL=main.css.map */
