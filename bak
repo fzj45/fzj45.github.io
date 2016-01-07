@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style media="screen">
+    body {
+      background: linear-gradient(to left, #ffa17f, #00223e); }
+
+    .musicBox {
+      float: right;
+      position:relative;
+      margin: 0;
+      width: 38.1971%; }
+
+    img {
+      opacity: 0.44;
+      filter: alpha(opacity=55); }
+      img:hover {
+        opacity: 0.8;
+        filter: alpha(opacity=80); }
+
+    ul.img-list {
+      float: left;
+      margin: 0;
+      padding: 0;
+      text-align: center; }
+      ul.img-list li {
+        display: inline-block;
+        position: relative; }
+        ul.img-list li:hover span.tooltips {
+          opacity: 1; }
+
+    span.tooltips {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      cursor: pointer;
+      display: table;
+      left: 0;
+      position: absolute;
+      top: 0;
+      opacity: 0;
+      transition: opacity 500ms; }
+      span.tooltips span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle; }
+    .tooltips{
+      font-size:12px;
+    }
+    </style>
+    <title>lastfm example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.5/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.5/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.10.1/fetch.min.js" ></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/babel">
+
+
+    var UserTrackBox = React.createClass({
+        getInitialState: function() {
+           return {
+               data: []
+
+           }
+        },
+        componentDidMount: function() {
+      fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=120')
+  .then(function(response) {
+    return response.json()
+
+  }).then(function(json) {
+    var data = json.recenttracks.track;
+    if (this.isMounted()) {
+                    this.setState({data: data});
+                }
+  }.bind(this)).catch(function(ex) {
+
+  })
+        },
+        render: function() {
+            return (
+                    <div className="musicBox">
+
+                            <TrackList data={this.state.data} />
+                    </div>
+            );
+        }
+    });
+
+    var TrackList = React.createClass({
+        render: function() {
+                var trackNodes = this.props.data.map(function(result, index) {
+
+                 var _furl = result.image[1]["#text"];
+                 var _fartist = result.artist["#text"];
+                 var _fname = result.name;
+                 var _fhref = result.url;
+
+
+                 if (_furl == 0) {
+                     var newimg = 'http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg';
+                     _furl = newimg;
+                 }
+
+                 return (<Track  fhref={_fhref} fartist={_fartist} fname={_fname}  furl={_furl} key={index}/>);
+
+             });
+             return (
+                 <ul className="img-list">
+                       {trackNodes}
+                    </ul>
+             );
+         }
+     });
+
+     var Track = React.createClass({
+         render: function() {
+             return (
+               <li className="img-list">
+               <a href={this.props.fhref}>
+               <img src={this.props.furl} width="64" height="64" />
+               <span className="tooltips">
+               <span>{this.props.fname}<br></br>{this.props.fartist}</span>
+               </span>
+               </a>
+               </li>
+             );
+         }
+     });
+
+    ReactDOM.render(
+      <UserTrackBox />,
+            document.getElementById('content')
+    );
+
+    </script>
+  </body>
+</html>
