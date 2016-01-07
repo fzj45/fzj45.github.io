@@ -145,12 +145,12 @@
 
     var Track = React.createClass({
         componentDidMount: function() {
-            $(ReactDOM.findDOMNode(this.refs.test)).tooltip();
+            $(ReactDOM.findDOMNode(this.refs.tips)).tooltip();
 
         },
         render: function() {
             return (
-                <a  ref="test" data-toogle="tooltip" title={this.props.fname}>
+                <a  ref="tips" data-toogle="tooltip" title={this.props.fname}>
                      <img  href={this.props.fhref} className="list" src={this.props.furl}/>
                  </a>
 
