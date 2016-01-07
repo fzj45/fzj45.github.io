@@ -96,7 +96,7 @@
                         this.setState({
                             data: data
                         });
-                        this.forceUpdate.data;
+                        this.forceUpdate.json;
                     }
                 }.bind(this)).catch(function(ex) {
 
@@ -149,7 +149,6 @@
 
         },
         render: function() {
-
             return (
                 <a  ref="test" data-toogle="tooltip" title={this.props.fname}>
                      <img  href={this.props.fhref} className="list" src={this.props.furl}/>
