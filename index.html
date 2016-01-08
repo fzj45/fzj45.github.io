@@ -127,6 +127,7 @@
                 var _fartist = result.artist["#text"];
                 var _fname = result.name;
                 var _fhref = result.url;
+                var _fdata = result.data["#text"];
 
 
                 if (_furl == 0) {
@@ -134,7 +135,7 @@
                     _furl = newimg;
                 }
 
-                return (<Track  fartist={_fartist} fhref= {_fhref} fname={_fname} furl={_furl} key={index}/>);
+                return (<Track  fdata= {_fdata} fartist={_fartist} fhref= {_fhref} fname={_fname} furl={_furl} key={index}/>);
 
             });
             return (
@@ -148,7 +149,7 @@
     var Track = React.createClass({
         componentDidMount: function() {
             $(ReactDOM.findDOMNode(this.refs.tips)).tooltip({
-        title: this.props.fartist +'<br />'+ this.props.fname,   
+        title: this.props.fartist +'<br />'+ this.props.fname+'<br />'+ this.props.fdata,   
         html: true, 
     });
 
