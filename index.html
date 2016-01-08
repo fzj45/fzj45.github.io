@@ -88,7 +88,7 @@
             }
         },
         componentDidMount: function() {
-            fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=120')
+            fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=119')
                 .then(function(response) {
                     return response.json()
 
@@ -147,12 +147,15 @@
 
     var Track = React.createClass({
         componentDidMount: function() {
-            $(ReactDOM.findDOMNode(this.refs.tips)).tooltip();
+            $(ReactDOM.findDOMNode(this.refs.tips)).tooltip({
+        title: this.props.fartist +'<br />'+ this.props.fname,   
+        html: true, 
+    });
 
         },
         render: function() {
             return (
-                <a  ref="tips" href={this.props.fhref} data-toogle="tooltip" title={this.props.fname}>
+                <a  ref="tips" href={this.props.fhref} data-toogle="tooltip" data-placement="left" >
                      <img  className="list" src={this.props.furl}/>
                  </a>
 
