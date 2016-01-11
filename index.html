@@ -94,11 +94,11 @@
           var limitNumber = 50;
           var windowSize = window.innerWidth;
 
-          if (windowSize > 1440){
+          if (windowSize => 1440){
             limitNumber = 95;
           }
-          else if (windowSize = 1440) {
-           limitNumber = 78;
+          else if ( windowSize => 800 && windowSize < 1280) {
+           limitNumber = 84;
           }
           else{
             limitNumber =50;
