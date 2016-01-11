@@ -17,17 +17,17 @@
         top:0px;
         bottom:0px;
         width: 38.1971%;
+        height: auto;
     }
     img {
-        opacity: 0.6;
-        filter: alpha(opacity=40);
-        /* For IE8 and earlier */
-    }
-    img:hover {
-        opacity: 1.0;
-        filter: alpha(opacity=100);
-        /* For IE8 and earlier */
-    }
+       opacity: 0.6;
+       filter: alpha(opacity=40);
+       /* For IE8 and earlier */
+   }
+   img:hover {
+       opacity: 8.0;
+       filter: alpha(opacity=70);
+}
     .userTrackBox {
         line-height: 0;
         -webkit-column-count: 8;
@@ -60,9 +60,9 @@
     }
     @media (max-width: 400px) {
         .userTrackBox {
-            -moz-column-count: 4;
-            -webkit-column-count: 4;
-            column-count: 4;
+            -moz-column-count: 3;
+            -webkit-column-count: 3;
+            column-count: 3;
         }
     }
     </style>
@@ -83,12 +83,29 @@
         var UserTrackBox = React.createClass({
         getInitialState: function() {
             return {
-                data: []
+                data: [],
+
 
             }
         },
         componentDidMount: function() {
-            fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=LincolnPhu&api_key=6510c6b46fd1c71571bc40ee7037e1a9&format=json&limit=119')
+          var user = 'lincolnphu' ;
+          var api = '6510c6b46fd1c71571bc40ee7037e1a9';
+          var limitNumber = 50;
+          var windowSize = window.innerWidth;
+
+          if (windowSize > 1440){
+            limitNumber = 95;
+          }
+          else if (windowSize = 1440) {
+           limitNumber = 78;
+          }
+          else{
+            limitNumber =50;
+          }
+          console.log(limitNumber)
+          var url = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+user+'&api_key='+api+'&format=json&limit='+limitNumber+''
+            fetch(url)
                 .then(function(response) {
                     return response.json()
 
@@ -128,7 +145,7 @@
                 var _fname = result.name;
                 var _fhref = result.url;
                 // var _fdate = result.date;
-                
+
 
 
                 if (_furl == 0) {
@@ -150,8 +167,8 @@
     var Track = React.createClass({
         componentDidMount: function() {
             $(ReactDOM.findDOMNode(this.refs.tips)).tooltip({
-        title: this.props.fartist +'<br />'+ this.props.fname,   
-        html: true, 
+        title: this.props.fartist +'<br />'+ this.props.fname,
+        html: true,
     });
 
         },
