@@ -1,0 +1,62 @@
+body {
+background: linear-gradient(to left, #ffa17f, #00223e);
+}
+.list {
+width: 100% !important;
+height: auto !important;
+}
+.userTrackBox {
+float: right;
+position: relative;
+margin: 0;
+top:0px;
+bottom:0px;
+width: 38.1971%;
+height: auto;
+}
+img {
+opacity: 0.6;
+filter: alpha(opacity=40);
+/* For IE8 and earlier */
+}
+img:hover {
+opacity: 8.0;
+filter: alpha(opacity=70);
+}
+.userTrackBox {
+line-height: 0;
+-webkit-column-count: 8;
+-webkit-column-gap: 0px;
+-moz-column-count: 8;
+-moz-column-gap: 0px;
+column-count: 8;
+column-gap: 0px;
+}
+@media (max-width: 1200px) {
+.userTrackBox {
+    -moz-column-count: 6;
+    -webkit-column-count: 6;
+    column-count: 6;
+}
+}
+@media (max-width: 1000px) {
+.userTrackBox {
+    -moz-column-count: 5;
+    -webkit-column-count: 5;
+    column-count: 5;
+}
+}
+@media (max-width: 800px) {
+.userTrackBox {
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+    column-count: 4;
+}
+}
+@media (max-width: 400px) {
+.userTrackBox {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+}
+}
