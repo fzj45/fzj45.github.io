@@ -23,7 +23,6 @@ var UserTrackBox = React.createClass({
                       return response.json()
                   }).then(function(json) {
                       var data = json.recenttracks.track;
-                      console.log(data[0]['@attr']['nowplaying'])
                       if (this.isMounted()) {
                           this.setState({
                               data: data,
@@ -64,7 +63,6 @@ var UserTrackBox = React.createClass({
                 var _fname = result.name;
                 var _fhref = result.url;
                 // var _fdate = result.date;
-                console.log(result);
 
 
 
