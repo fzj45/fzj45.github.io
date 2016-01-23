@@ -1,16 +1,18 @@
-
-        var UserTrackBox = React.createClass({
+var UserTrackBox = React.createClass({
           loadMusicFromServer: function() {
             var user = 'lincolnphu' ;
             var api = '6510c6b46fd1c71571bc40ee7037e1a9';
             var limitNumber = 50;
             var windowSize = window.innerWidth;
 
-            if (windowSize => 1440){
-              limitNumber = 95;
+            if (windowSize > 1465){
+              limitNumber = 98;
+            }
+            else if (windowSize = 1440){
+              limitNumber= 84;
             }
             else if ( windowSize => 800 && windowSize < 1280) {
-             limitNumber = 84;
+             limitNumber = 64;
             }
             else {
               limitNumber =50;
@@ -19,9 +21,9 @@
               fetch(url)
                   .then(function(response) {
                       return response.json()
-
                   }).then(function(json) {
                       var data = json.recenttracks.track;
+                      console.log(data[0]['@attr']['nowplaying'])
                       if (this.isMounted()) {
                           this.setState({
                               data: data,
@@ -45,7 +47,6 @@
         shouldComponentUpdate: function(nextProps, nextState) {
             return true;
         },
-
         render: function() {
             return (
                 <div className="LastFmlist">
@@ -63,6 +64,7 @@
                 var _fname = result.name;
                 var _fhref = result.url;
                 // var _fdate = result.date;
+                console.log(result);
 
 
 
@@ -88,7 +90,6 @@
     });
 
     var Track = React.createClass({
-
         componentDidMount: function() {
             $(ReactDOM.findDOMNode(this.refs.tips)).tooltip({
         title: this.props.fartist +'<br />'+ this.props.fname,
@@ -109,6 +110,8 @@
     });
 
     ReactDOM.render(
-        <UserTrackBox />,
+      <div>
+      <UserTrackBox />
+        </div>,
         document.getElementById('content')
     );
