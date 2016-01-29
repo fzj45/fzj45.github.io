@@ -8,42 +8,42 @@ var UserTrackBox = React.createClass({
             if (windowSize > 1465){
               limitNumber = 98;
             }
-            else if (windowSize = 1440){
+            else if (windowSize == 1440){
               limitNumber= 84;
             }
-            else if ( windowSize => 800 && windowSize < 1280) {
+            else if ( windowSize > 800 && windowSize < 1280) {
              limitNumber = 64;
             }
             else {
               limitNumber =50;
             }
-            var url = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+user+'&api_key='+api+'&format=json&limit='+limitNumber+''
+            var url = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+user+'&api_key='+api+'&format=json&limit='+limitNumber+'';
               fetch(url)
                   .then(function(response) {
-                      return response.json()
+                      return response.json();
                   }).then(function(json) {
                       var data = json.recenttracks.track;
                       if (this.isMounted()) {
                           this.setState({
                               data: data,
                           });
-                          this.forceUpdate.json;
+                          this.forceUpdate();
                       }
-                  }.bind(this)).catch(function(ex) {
-
-                  })
+                  }.bind(this)).catch(function(err) {
+                    console.log('parsing failed', err);
+                  });
         },
         getInitialState: function() {
             return {
                 data: [],
-            }
+            };
         },
         componentDidMount: function() {
           this.loadMusicFromServer();
           setInterval(this.loadMusicFromServer,60000);
         },
 
-        shouldComponentUpdate: function(nextProps, nextState) {
+        shouldComponentUpdate: function() {
             return true;
         },
         render: function() {
@@ -96,7 +96,7 @@ var UserTrackBox = React.createClass({
         },
         render: function() {
           var hide;
-            hide = <img  className="list" src={this.props.furl}/>
+            hide = <img  className="list" src={this.props.furl}/>;
             return (
                 <a  ref="tips" href={this.props.fhref} data-toogle="tooltip" data-placement="left" >
                      {hide}
