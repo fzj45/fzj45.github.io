@@ -66,7 +66,7 @@ var UserTrackBox = React.createClass({
 
 
 
-                if (_furl == 0) {
+                if (_furl === "" ) {
                     var newimg = 'http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg';
                     _furl = newimg;
                 }
