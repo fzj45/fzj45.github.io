@@ -58,7 +58,10 @@ var UserTrackBox = React.createClass({
     var TrackList = React.createClass({
         render: function() {
             var trackNodes = this.props.data.map(function(result, index) {
-                var imga = true;
+              console.log(result.image[1]["#text"])
+                if (result.image[1]["#text"] === ""){
+                 var imga = true;
+                }
                 // var _furl = imga ? "http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg" :  furl = result.image[1]["#text"];
                 var Obj  = {
                 furl:imga ? "http://img2-ak.lst.fm/i/u/174s/e04ce91798e34c36b21a85a9fab01b40.jpg":result.image[1]["#text"],
@@ -83,17 +86,17 @@ var UserTrackBox = React.createClass({
 
        var Track = React.createClass({
         componentDidMount: function() {
-           var like = document.getElementsByClassName("xh");
-           for (var index = 0; index < like.length; ++index) {
-            
-             like[0].style.display="none";
-};
             $(ReactDOM.findDOMNode(this.refs.tips)).tooltip({
         title: this.props.fartist +'<br />'+ this.props.fname,
         html: true,
     });
         },
         render: function() {
+           var like = document.getElementsByClassName("xh");
+           for (var  i = 0; i < like.length; ++i) {
+            
+             like[2].style.display="none";
+};
             return (
                 <a  ref="tips" className="xh" href={this.props.fhref} data-toogle="tooltip" data-placement="left" >
                      <img  className="list" src={this.props.furl}/>
