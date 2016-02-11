@@ -27,7 +27,6 @@ var UserTrackBox = React.createClass({
                           this.setState({
                               data: data,
                           });
-                          this.forceUpdate();
                       }
                   }.bind(this)).catch(function(err) {
                     console.log('parsing failed', err);
@@ -43,9 +42,10 @@ var UserTrackBox = React.createClass({
           setInterval(this.loadMusicFromServer,60000);
         },
 
-        shouldComponentUpdate: function() {
-            return true;
-        },
+        componentWillUnmount: function() {
+         this.loadMusicFromServer.abort();
+  },
+
         render: function() {
             return (
                 <div className="LastFmlist">
@@ -58,7 +58,6 @@ var UserTrackBox = React.createClass({
     var TrackList = React.createClass({
         render: function() {
             var trackNodes = this.props.data.map(function(result, index) {
-              console.log(result.image[1]["#text"])
                 if (result.image[1]["#text"] === ""){
                  var imga = true;
                 }
