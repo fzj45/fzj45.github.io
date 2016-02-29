@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>w3school example</title>
+	<script src="../bower_components/react/react.min.js"></script>
+	<script src="../bower_components/react/react-dom.min.js"></script>
+	<script src="../bower_components/babel/browser.min.js"></script>
+</head>
+<body>
+<div class="contenter">
+</div>
+<script type="text/babel">
+	var App = React.createClass({
+	componentDidMount:function() {
+		console.log(React.findDOMNode(this));
+     var node = ReactDOM.findDOMNode(this);
+     node.innerHTML = "Hello World";
+},
+	render:function(){
+		return(
+		<div/>
+		
+		);
+	}
+});
+
+
+React.render(<App/>,document.querySelector('.contenter'));
+</script>
+</body>
+</html>
