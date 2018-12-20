@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://dagrejs.github.io/project/dagre-d3/latest/demo/tipsy.js"></script>
+<style>
+.tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
+  .tipsy-inner { background-color: #000; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
+
+  /* Rounded corners */
+  .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+  
+  /* Uncomment for shadow */
+  .tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }
+  
+  .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #000; }
+  
+  /* Rules to colour arrows */
+  .tipsy-arrow-n { border-bottom-color: #000; }
+  .tipsy-arrow-s { border-top-color: #000; }
+  .tipsy-arrow-e { border-left-color: #000; }
+  .tipsy-arrow-w { border-right-color: #000; }
+  
+	.tipsy-n .tipsy-arrow { top: 0px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-nw .tipsy-arrow { top: 0; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}
+    .tipsy-ne .tipsy-arrow { top: 0; right: 10px; border-bottom-style: solid; border-top: none;  border-left-color: transparent; border-right-color: transparent;}
+  .tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -5px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; border-top-style: solid; border-bottom: none;  border-left-color: transparent; border-right-color: transparent; }
+    .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; border-top-style: solid; border-bottom: none; border-left-color: transparent; border-right-color: transparent; }
+  .tipsy-e .tipsy-arrow { right: 0; top: 50%; margin-top: -5px; border-left-style: solid; border-right: none; border-top-color: transparent; border-bottom-color: transparent; }
+  .tipsy-w .tipsy-arrow { left: 0; top: 50%; margin-top: -5px; border-right-style: solid; border-left: none; border-top-color: transparent; border-bottom-color: transparent; }
+g.type-TK > rect {
+  fill: #00ffd0;
+}
+
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+.node rect {
+  stroke: #999;
+  fill: #fff;
+  stroke-width: 1.5px;
+}
+
+.edgePath path {
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.tipsy .name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #60b1fc;
+  margin: 0;
+}
+/* This styles the body of the tooltip */
+.tipsy .description {
+  font-size: 1.2em;
+}
+</style>
+</head>
+<body>
+	<svg width=1060 height=1000></svg>
+	<script>
+		var g = new dagreD3.graphlib.Graph()
+  .setGraph({})
+  .setDefaultEdgeLabel(function() { return {}; });
+
+
+
+
+// Here we"re setting nodeclass, which is used by our custom drawNodes function
+// below.
+g.setNode(0,  { label: "TOP",  description: "represents no connection state at all.",     class: "type-TOP" });
+g.setNode(1,  { label: "S",    description: "represents no connection state at all.",     class: "type-S" });
+g.setNode(2,  { label: "NP",  description: "represents no connection state at all.",      class: "type-NP" });
+g.setNode(3,  { label: "DT",  description: "represents no connection state at all.",      class: "type-DT" });
+g.setNode(4,  { label: "This",  description: "represents no connection state at all.",    class: "type-TK" });
+g.setNode(5,  { label: "VP",  description: "represents no connection state at all.",      class: "type-VP" });
+g.setNode(6,  { label: "VBZ",  description: "represents no connection state at all.",     class: "type-VBZ" });
+g.setNode(7,  { label: "is",  description: "represents no connection state at all.",      class: "type-TK" });
+g.setNode(8,  { label: "NP", description: "represents no connection state at all.",       class: "type-NP" });
+g.setNode(9,  { label: "DT",  description: "represents no connection state at all.",      class: "type-DT" });
+g.setNode(10, { label: "an",  description: "represents no connection state at all.",      class: "type-TK" });
+g.setNode(11, { label: "NN",  description: "represents no connection state at all.",      class: "type-NN" });
+g.setNode(12, { label: "example", description: "represents no connection state at all.",  class: "type-TK" });
+g.setNode(13, { label: ".",   description: "represents no connection state at all.",      class: "type-." });
+g.setNode(14, { label: "sentence",description: "represents no connection state at all.",  class: "type-TK" });
+
+g.nodes().forEach(function(v) {
+	
+  var node = g.node(v);
+  // Round the corners of the nodes
+  node.rx = node.ry = 5;
+})
+
+
+
+// Set up edges, no special attributes.
+g.setEdge(3, 4);
+g.setEdge(2, 3);
+g.setEdge(1, 2);
+g.setEdge(6, 7);
+g.setEdge(5, 6);
+g.setEdge(9, 10);
+g.setEdge(8, 9);
+g.setEdge(11,12);
+g.setEdge(8, 11);
+g.setEdge(5, 8);
+g.setEdge(1, 5);
+g.setEdge(13,14);
+g.setEdge(1, 13);
+g.setEdge(0, 1)
+
+// Create the renderer
+var render = new dagreD3.render();
+
+// Set up an SVG group so that we can translate the final graph.
+var svg = d3.select("svg"),
+    svgGroup = svg.append("g");
+
+// Run the renderer. This is what draws the final graph.
+
+render(d3.select("svg g"), g);
+// Center the graph
+var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+svg.attr("height", g.graph().height + 40);
+
+
+
+var styleTooltip = function(name, description) {
+  return "<p class='name'>" + name + "</p><p class='description'>" + description + "</p>";
+};
+
+
+svgGroup.selectAll("g.node")
+  .attr("title", function(v) { 
+  	console.log(g.node(v).description)
+  	return styleTooltip(v, g.node(v).description) })
+  .each(function(v) { $(this).tipsy({ gravity: "w", opacity: 1, html: true }); });
+	</script>
+	
+</body>
+</html>
