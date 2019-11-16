@@ -1,2 +1,3 @@
-#1
+
+#/bin/sh
 echo "this first example"
